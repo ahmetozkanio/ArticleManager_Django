@@ -1,0 +1,73 @@
+{% extends 'layout.html' %} {% block body %}
+<div class="row">
+  <div class="col-md-10 offset-md-1">
+    <div class="col-lg-8">
+      <h3>Makaleler</h3>
+      <hr />
+
+      <form class="form-inline mr-auto">
+        {% csrf_token %}
+        <input
+          class="form-control"
+          type="text"
+          placeholder="Search"
+          aria-label="Search"
+          name="keyword"
+        />
+        <button
+          class="btn btn-warning btn-rounded btn-sm my-0 ml-sm-2"
+          type="submit"
+        >
+          Search
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% if articles %} {% for article in articles %}
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-10 offset-md-1">
+      <div class="col-lg-8">
+        <!-- Post content-->
+        <article>
+          <!-- Post header-->
+          <header class="mb-4">
+            <!-- Post title-->
+            <a href="{% url 'article:detail' article.id %}"
+              ><h3 class="fw-bolder mb-1">{{article.title}}</h3></a
+            >
+
+            <!-- Post meta con tent-->
+            <div class="text-muted fst-italic mb-2">
+              by {{article.author.username}}
+              <small>{{article.created_date}}</small>
+            </div>
+          </header>
+          <!-- Preview image figure -->
+
+          {% if article.article_image %}
+          <figure class="mb-4">
+            <a href="{% url 'article:detail' article.id %}">
+              <img class="img-fluid rounded" src="{{article.article_image.url}}"
+              alt"" /></a
+            >
+            <img class="img-fluid rounded" src="{{article.article_image.url}}"
+            alt"" />
+          </figure>
+          {% endif %}
+
+          <!-- Post content htmlz icerikleri normal yazi olarak gosterme safe-->
+
+          <p class="lead">{{article.content | safe}}</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endfor %} {% else %}
+<div class="alert alert-danger">Makale bununamadi..</div>
+
+{% endif %} {% endblock body %}

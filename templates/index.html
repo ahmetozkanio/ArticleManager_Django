@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+
+
+<div class="jumbotron text-center">
+    <h3>Merhaba Ahmet Ozkan Bloguna Hosgeldiniz</h3>
+    <p>Bu blog Django ile yazilmistir</p>
+</div>
+
+
+{% if request.user.is_authenticated %}
+    Giris Yapilmis, {{request.user.username}}
+{%else %}
+    Giris yapilmamis
+{% endif %}
+
+
+
+{% endblock body %}<h3>AnaSayfa</h3>
